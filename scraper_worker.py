@@ -11,9 +11,10 @@ from redis_client import redis_db
 import config
 
 # ---------------- CONFIG ----------------
-# Each worker writes to its own file (named by process ID) so two workers
-# writing at the same time can never corrupt each other's CSV rows.
-OUTPUT_FILE = f"bhw_structured_{os.getpid()}.csv"
+OUTPUT_DIR = "data"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+RUN_ID = datetime.now().strftime("%Y%m%d_%H%M%S")
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, f"bhw_structured_{RUN_ID}_{os.getpid()}.csv")
 FIELDS = ["title", "category", "author", "date", "replies", "content", "url", "scraped_at"]
 
 # Tracks URLs that are currently being scraped by some worker, so a second

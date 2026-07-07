@@ -4,7 +4,7 @@ import pandas as pd
 # Finds every bhw_structured_<pid>.csv file the workers wrote and
 # combines them into one clean final file.
 
-worker_files = glob.glob("bhw_structured_*.csv")
+worker_files = glob.glob("data/bhw_structured_*.csv")
 
 if not worker_files:
     print("No worker output files found. Did the workers run yet?")
@@ -18,8 +18,8 @@ else:
     combined.drop_duplicates(subset="url", inplace=True)
     after = len(combined)
 
-    combined.to_csv("bhw_structured_merged.csv", index=False)
+    combined.to_csv("data/bhw_structured_merged.csv", index=False)
 
     print(f"Combined rows : {before}")
     print(f"After dedup   : {after}")
-    print("Saved -> bhw_structured_merged.csv")
+    print("Saved -> data/bhw_structured_merged.csv")
